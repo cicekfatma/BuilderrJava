@@ -1,0 +1,130 @@
+public class Computer{
+private String CPU;
+private String RAM;
+private String storage;
+private String graphicsCard;
+
+
+public void setCPU(String CPU){
+    this.CPU=CPU;
+    
+}
+public void setRAM(String RAM){
+    this.RAM=RAM;
+}
+
+public void setStorage(String storage){
+    this.storage=storage;
+}
+
+public void setGraphicsCard(String graphicsCard){
+    this.graphicsCard=graphicsCard;
+}
+
+public String toString(){
+    return "Bilgisayar [CPU="+CPU+", RAM="+RAM+", Depolama="+storage+", Ekran ,Kartı="+graphicsCard+"]";
+}
+
+}
+public interface ComputerBuilder{
+    public void buildCPU();
+    public void buildRAM();
+    public void buildStorage();
+    public void buildGraphicsCard();
+    public Computer getComputer();
+}
+public class GamingComputerBuilder implements ComputerBuilder{
+    private Computer computer;
+    public GamingComputerBuilder(){
+        this.computer=new Computer();
+    }
+    @Override
+    public void buildCPU(){
+        computer.setCPU("Intel i9");
+    }
+    @Override
+    public void buildRAM(){
+        computer.setRAM("32GB");
+    }
+    @Override
+    public void buildStorage(){
+        computer.setStorage("1TB SSD");
+    }
+    @Override
+    public void buildGraphicsCard(){
+        computer.setGraphicsCard("NVIDIA RTX 4090");
+    }
+    @Override
+    public Computer getComputer(){
+        return this.computer;
+    }
+    
+}
+public class OfficeComputerBuilder implements ComputerBuilder{
+    private Computer computer;
+    public OfficeComputerBuilder(){
+        this.computer= new Computer();
+    }
+    @Override
+    public void buildCPU(){
+        computer.setCPU("Intel i5");
+    }
+    @Override
+    public void buildRAM(){
+        computer.setRAM("16GB");
+    }
+    @Override
+    public void buildStorage(){
+        computer.setStorage("512GB SSD");
+    }
+    @Override
+    public void buildGraphicsCard(){
+        computer.setGraphicsCard("Bütünleşik ekran kartı");
+    }
+    @Override
+    public Computer getComputer(){
+        return this.computer;
+    }
+}
+public class ServerBuilder implements ComputerBuilder{
+    private Computer computer;
+    public ServerBuilder(){
+        this.computer= new Computer();
+    }
+    @Override
+    public void buildCPU(){
+        computer.setCPU("AMD EPYC 7742");
+    }
+    @Override
+    public void buildRAM(){
+        computer.setRAM("256GB ECC");
+    }
+    @Override
+    public void buildStorage(){
+        computer.setStorage("4TB NVMe SSD");
+    }
+    @Override
+    public void buildGraphicsCard(){
+        computer.setGraphicsCard("Ekran kartı yok");
+    }
+    @Override
+    public Computer getComputer(){
+        return this.computer;
+    } 
+}
+public class ComputerDirector{
+    private ComputerBuilder builder;
+    public ComputerDirector(ComputerBuilder builder){
+        this.builder=builder;
+        
+    }
+    public void constructComputer(){
+        builder.buildCPU();
+        builder.buildRAM();
+        builder.buildStorage();
+        builder.buildGraphicsCard();
+    }
+    public Computer getComputer(){
+        return builder.getComputer();
+    }
+}
